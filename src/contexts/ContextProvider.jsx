@@ -1,26 +1,20 @@
-/* eslint-disable no-unused-vars */
-import { createContext, useContext, useState } from "react";
+import {createContext,  useState} from 'react';
 
-const StateContext = createContext();
 
-const InitialState = {
-  chat: false,
-  cart: false,
-  userProfile: false,
-  notification: false,
-};
+const defualtMenuContextValue = {
+    activeMenu: true,
+    setActiveMenu: ()=>{}
+}
 
-// eslint-disable-next-line react/prop-types
-export const ContextProvider = ({ children }) => {
-  const [activeMenu, setActiveMenu] = useState(true);
 
-  return (
-    <StateContext.Provider
-      value={{ activeMenu, setActiveMenu }}
-    >
-      {children}
-    </StateContext.Provider>
-  );
-};
+export const MenuContext = createContext(defualtMenuContextValue)
 
-export const useStateContext = () => useContext(StateContext);
+export const MenuContextProvider = ({children}) => {
+    const [activeMenu, setActiveMenu] = useState(defualtMenuContextValue);
+    return (
+        <MenuContext.Provider
+        value={{activeMenu, setActiveMenu}}>
+            {children}
+        </MenuContext.Provider>
+    )
+}
